@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class hello
+public class Hello
 {
     
 }
