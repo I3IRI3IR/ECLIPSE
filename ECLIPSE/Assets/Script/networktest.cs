@@ -2,92 +2,98 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
+using TMPro;
 
 public class networktest : MonoBehaviour
 {
-    // 目標 URL
     string targeturl_prefix = "http://127.0.0.1:8000/";
+    public TMP_InputField input_userid; 
+    public TMP_InputField input_password;
+    string userid;
+    string password;
+
+    void Start()
+    {
+        
+        userid = string.Empty;
+        password = string.Empty;
+    }
 
     public void Sign_in_Onclick()
     {
+        
+        userid = input_userid.text;
+        password = input_password.text;
+
         StartCoroutine(Send_Sign_in_Request());
-        Debug.Log("test1");
+        Debug.Log("Sign-in request started");
     }
 
     public IEnumerator Send_Sign_in_Request()
     {
-        Debug.Log("test2");
-        string targetUrl=targeturl_prefix+"sign_in";
-        
-        string jsonData = "{\"user_name\": \"bir\", \"password\": \"12345\"}";
+        Debug.Log("Preparing sign-in request...");
+        string targetUrl = targeturl_prefix + "sign_in";
 
-        // 建立 UnityWebRequest，設置為 POST
-        UnityWebRequest request = new UnityWebRequest(targetUrl, "POST");
         
-        // 設置請求的內容類型和資料
+        string jsonData = $"{{\"user_name\": \"{userid}\", \"password\": \"{password}\"}}";
+
+        UnityWebRequest request = new UnityWebRequest(targetUrl, "POST");
+
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
         request.uploadHandler = new UploadHandlerRaw(jsonToSend);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        Debug.Log("test3");
+        Debug.Log("Sending sign-in request...");
 
-        // 發送請求並等待回應
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            // 請求成功，處理響應
             Debug.Log("Response: " + request.downloadHandler.text);
         }
         else
         {
-            // 請求失敗，顯示錯誤
             Debug.LogError("Error: " + request.error);
         }
-        Debug.Log("test4");
     }
-
 
     public void Sign_up_Onclick()
     {
+        
+        userid = input_userid.text;
+        password = input_password.text;
+
         StartCoroutine(Send_Sign_up_Request());
-        Debug.Log("test5");
+        Debug.Log("Sign-up request started");
     }
 
     public IEnumerator Send_Sign_up_Request()
     {
-        Debug.Log("test6");
-
-        string targetUrl=targeturl_prefix+"sign_up";
-        string jsonData = "{\"user_name\": \"sakinu\", \"password\": \"23456\"}";
+        Debug.Log("Preparing sign-up request...");
+        string targetUrl = targeturl_prefix + "sign_up";
 
         
+        string jsonData = $"{{\"user_name\": \"{userid}\", \"password\": \"{password}\"}}";
+
         UnityWebRequest request = new UnityWebRequest(targetUrl, "POST");
-        
-        // 設置請求的內容類型和資料
+
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
         request.uploadHandler = new UploadHandlerRaw(jsonToSend);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        Debug.Log("test7");
+        Debug.Log("Sending sign-up request...");
 
-        // 發送請求並等待回應
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            // 請求成功，處理響應
             Debug.Log("Response: " + request.downloadHandler.text);
         }
         else
         {
-            // 請求失敗，顯示錯誤
             Debug.LogError("Error: " + request.error);
         }
-        Debug.Log("test8");
     }
-
-
 }
