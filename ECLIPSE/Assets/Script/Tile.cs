@@ -7,7 +7,9 @@ public class Tile: MonoBehaviour
     [SerializeField] private SpriteRenderer Renderer;
 
     public void Init(int type) {
-        Debug.Log(type);
         Renderer.color = Back[type];
+    }
+    void OnMouseDown() {
+        Debug.Log($"Clicked on tile: {gameObject.name} at {transform.position}");
     }
 }
