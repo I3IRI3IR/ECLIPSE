@@ -1116,7 +1116,7 @@ GameObject:
   - component: {fileID: 1691645024322261489}
   - component: {fileID: 7615849135261892638}
   m_Layer: 5
-  m_Name: LoginUI
+  m_Name: SignUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1220,6 +1220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input_userid: {fileID: 357910136963381994}
   input_password: {fileID: 6227670456335094534}
+  SignUI: {fileID: 5882157776850848220}
+  LobbyUI: {fileID: 2118208925431673657, guid: a3fe0a899a13b274d9f7f7af4cabf2bd, type: 3}
 --- !u!1 &6436534232743534902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +2055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -842748779033256923, guid: 4a54047f884813c4888b0b457cfeb6d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4a54047f884813c4888b0b457cfeb6d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

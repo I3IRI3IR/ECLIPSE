@@ -4,13 +4,16 @@ using System.Collections;
 using UnityEngine.Networking;
 using TMPro;
 
-public class networktest : MonoBehaviour
+public class LoginManager : MonoBehaviour
 {
     string targeturl_prefix = "http://127.0.0.1:8000/";
     public TMP_InputField input_userid; 
     public TMP_InputField input_password;
     string userid;
     string password;
+
+    public GameObject SignUI;
+    public GameObject LobbyUI;
 
     void Start()
     {
@@ -21,7 +24,6 @@ public class networktest : MonoBehaviour
 
     public void Sign_in_Onclick()
     {
-        
         userid = input_userid.text;
         password = input_password.text;
 
@@ -51,6 +53,9 @@ public class networktest : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             Debug.Log("Response: " + request.downloadHandler.text);
+            SignUI.SetActive(false);
+            LobbyUI.SetActive(true);
+            StartCoroutine(Send_Get_Room_Request());
         }
         else
         {
@@ -95,5 +100,18 @@ public class networktest : MonoBehaviour
         {
             Debug.LogError("Error: " + request.error);
         }
+    }
+
+    public IEnumerator Send_Get_Room_Request()
+    {
+        Debug.Log("Preparing sign-in request...");
+        string targetUrl = targeturl_prefix + "get_room_list/" + userid;
+
+        UnityWebRequest request = UnityWebRequest.Get(targetUrl);
+
+        yield return request.SendWebRequest();
+
+        //沒做完
+
     }
 }
