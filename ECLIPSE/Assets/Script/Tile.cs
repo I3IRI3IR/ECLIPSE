@@ -1,25 +1,24 @@
 using System;
 using UnityEngine;
-using TMPro;
 
 public class Tile: MonoBehaviour
 {
     // Static variable
-    public static TileInformationManager UIManager;
+    public static TileInformationManager TileUIManager;
     // For each tile
     [SerializeField] private Color[] Back;
-    [SerializeField] private SpriteRenderer Renderer;
     public TileData data;
 
     public void Init(int type) {
-        Renderer.color = Back[type];
+        this.GetComponent<SpriteRenderer>().color = Back[type];
+        data.Resources = new int[] {0, 1, 2, 3, 2, 1, 0};
+        data.Facility = new int[] {0, 0, 0};
     }
 
     public void Reveal(int ID) {
         // Set up the data upon reveal
     }
     void OnMouseDown() {
-        UIManager.TileID.text = data.ID.ToString();
-        UIManager.InfoPanel.SetActive(true);
+        TileUIManager.ShowPanel(data);
     }
 }
