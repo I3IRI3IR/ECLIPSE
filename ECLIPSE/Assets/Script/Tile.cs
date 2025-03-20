@@ -11,12 +11,18 @@ public class Tile: MonoBehaviour
 
     public void Init(int type) {
         this.GetComponent<SpriteRenderer>().color = Back[type];
-        data.Resources = new int[] {0, 1, 2, 3, 2, 1, 0};
-        data.Facility = new int[] {0, 0, 0};
+        Reveal(1234);
     }
 
     public void Reveal(int ID) {
         // Set up the data upon reveal
+        data.ID = ID;
+        data.ancient = 1;
+        data.star = true;
+        data.prize = 5;
+        data.score = 4;
+        data.Resources = new int[] {0, 1, 2, 3, 2, 1, 0};
+        data.Facility = new bool[] {true, true, true};
     }
     void OnMouseDown() {
         TileUIManager.ShowPanel(data);
